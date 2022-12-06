@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Counters:</h1>
+    <div class="row gx-5">
+        {% for counter in counters %}
+            <div class="col-4">
+                <div class="card text-white ">
+                    <div class="card-body bg-dark text-center">
+                        <h3>{{ counter.name }}</h3>
+                        <p class="card-title mt-2">
+                            {% if counter.startedAt %}
+                                {# calculateDiff() in included _timer.html.twig #}
+                                <span id="{{ counter.name ~ '-hours' }}" class="badge"></span> :
+                                <span id="{{ counter.name ~ '-minutes' }}" class="badge"></span> :
+                                <span id="{{ counter.name ~ '-seconds' }}" class="badge"></span>
+                            {% else %}
+                                not started yet
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                <a href="{{ path("admin_counter_edit", {name: counter.name}) }}" class="btn btn-primary">Edit</a>
+                <a href="{{ path("counter", {name: counter.name}) }}" class="btn btn-danger">Go to timer</a>
+            </div>
+        {% endfor %}
+        <div class="py-5">
+            <a href="{{ path("admin_counter_create") }}" class="btn btn-primary">Add counter</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {% for counter in counters %}
+        {% include '_timer.html.twig' %}
+    {% endfor %}
+
+    {{ parent() }}
+{% endblock %}

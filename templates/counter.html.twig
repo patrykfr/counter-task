@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="card text-white ">
+        <div class="card-body bg-dark text-center">
+            <h3>{{ counter.name }}</h3>
+            <p class="card-title mt-2">
+                {% if counter.startedAt %}
+                    {# calculateDiff() in included _timer.html.twig #}
+                    <span id="{{ counter.name ~ '-hours' }}" class="badge"></span> :
+                    <span id="{{ counter.name ~ '-minutes' }}" class="badge"></span> :
+                    <span id="{{ counter.name ~ '-seconds' }}" class="badge"></span>
+                {% else %}
+                    not started yet
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    {% include '_timer.html.twig' %}
+{% endblock %}

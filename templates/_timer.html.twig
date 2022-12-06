@@ -1,0 +1,21 @@
+<script>
+    let timer{{ counter.name }} = {{ calculateDiff(counter) }};
+    function showClock() {
+        let hours = Math.floor((timer{{ counter.name }} % (60 * 60 * 24)) / (60 * 60));
+        let minutes = Math.floor((timer{{ counter.name }} % (60 * 60)) / (60));
+        let seconds = Math.floor((timer{{ counter.name }} % (60)));
+
+        const addZero = num => {
+            if (num < 10) { return '0' + num };
+            return num;
+        }
+
+        document.getElementById("{{ counter.name ~ '-hours' }}").innerHTML = addZero(hours);
+        document.getElementById("{{ counter.name ~ '-minutes' }}").innerHTML = addZero(minutes);
+        document.getElementById("{{ counter.name ~ '-seconds' }}").innerHTML = addZero(seconds);
+
+        timer{{ counter.name }} += 1;
+    }
+    showClock()
+    setInterval(showClock, 1000);
+</script>
